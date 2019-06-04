@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+    <title>Список публикаций</title>
+    <style>
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            padding: 0 .62em;
+            font: 1.2em/1.62 sans-serif;
+        }
+        h1, h2 {
+            line-height: 1.2;
+        }
+    </style>
+
+    <article>
+        <header>
+            <h1>Публикации</h1>
+            <aside><a href="{% url "api_post_list" %}">Список всех публикаций</a></aside>
+            <aside><a href="{% url "api_category_list" %}">Категории</a></aside>
+        </header>
+
+        {% for pub in posts %}
+            <h2>{{ pub.title }}</h2>
+            <p>
+                Публикация {{ pub.author }} от {{ pub.when_published }}
+                категория: <b> <a href="{% url "api_category_list" pub.category.id %}">{{ pub.category}}</a> </b>
+            </p>
+            {{ pub.body|truncatewords:10|linebreaks }}
+            
+        {% empty %}
+            <h2>Публикации нет</h2>
+            <p>Чтобы добавить что-то в список, <a href="{% url "admin:index" %}">
+                зайдите в админку</a> и добавьте их оттуда</p>
+        
+        {% endfor %}
+
+    </article>
+</html>
