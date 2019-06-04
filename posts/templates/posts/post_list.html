@@ -9,8 +9,13 @@
             padding: 0 .62em;
             font: 1.2em/1.62 sans-serif;
         }
-        h1, h2 {
+        h1, h3 {
             line-height: 1.2;
+            margin-bottom: 0;
+        }
+        #sub {
+            margin-top: 0;
+            padding-top: 0;
         }
     </style>
 
@@ -22,17 +27,19 @@
         </header>
 
         {% for pub in posts %}
-            <h2>{{ pub.title }}</h2>
-            <p>
-                Публикация {{ pub.author }} от {{ pub.when_published }}
-                категория: <b> <a href="{% url "api_category_list" pub.category.id %}">{{ pub.category}}</a> </b>
-            </p>
+            <h3>{{ pub.title }}</h3>
+            <small><p id="sub">
+                Публикация {{ pub.author }} от {{ pub.when_published }}&nbsp//
+                категория: <a href="{% url "api_category_list" pub.category.id %}">{{ pub.category}}</a>&nbsp//
+                статус: {{ pub.status }}
+            </p></small>
+
             {{ pub.body|truncatewords:10|linebreaks }}
             
         {% empty %}
-            <h2>Публикации нет</h2>
-            <p>Чтобы добавить что-то в список, <a href="{% url "admin:index" %}">
-                зайдите в админку</a> и добавьте их оттуда</p>
+            <h3>Публикации нет</h3>
+            <small><p>Чтобы добавить что-то в список, <a href="{% url "admin:index" %}">
+                зайдите в админку</a> и добавьте их оттуда</p></small>
         
         {% endfor %}
 

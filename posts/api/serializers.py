@@ -19,7 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'slug', 'author', 'category',]
+        fields = ['id', 'title', 'slug', 'author', 'category', 'status']
 
 class CategoryDetailSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(many=False, read_only=True)
